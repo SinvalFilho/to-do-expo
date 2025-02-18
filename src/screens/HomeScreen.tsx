@@ -23,7 +23,7 @@ const HomeScreen: React.FC = () => {
   useEffect(() => {
     (async () => {
       const loadedTasks = await loadTasks();
-      setTasks(loadedTasks);
+      setTasks(loadedTasks || []);
     })();
   }, []);
 
@@ -109,6 +109,11 @@ const HomeScreen: React.FC = () => {
             isDarkMode={isDarkMode}
           />
         )}
+        ListEmptyComponent={() => (
+          <Text style={[styles.emptyText, isDarkMode ? themes.dark.text : themes.light.text]}>
+            Nenhuma tarefa adicionada.
+          </Text>
+        )}
       />
     </View>
   );
@@ -174,6 +179,10 @@ const styles = StyleSheet.create({
     padding: 10,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  emptyText: {
+    fontSize: 18,
+    fontStyle: 'italic',
   },
 });
 
